@@ -1,0 +1,9 @@
+# docker build --build-arg REPO_URL=https://github.com/Pyrinpyi/pyipad .
+
+FROM alpine/git as git
+
+ARG REPO_URL
+
+RUN mkdir /out
+
+RUN git clone --depth 1 -b master $REPO_URL /out

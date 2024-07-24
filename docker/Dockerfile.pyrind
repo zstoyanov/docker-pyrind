@@ -1,0 +1,30 @@
+FROM stage/build as build
+
+FROM alpine:latest
+
+RUN apk --no-cache add \
+    bind-tools \
+    su-exec \
+    grep
+
+ENV PYRIN_USER=PYRIN \
+  PYRIN_HOME=/app/data \
+  PYRIN_UID=51591 \
+  PATH=/app:$PATH
+
+WORKDIR /app
+
+RUN mkdir $PYRIN_HOME && \
+  addgroup -S -g $PYRIN_UID $PYRIN_USER && \
+  adduser -h $PYRIN_HOME -S -D -g '' -G $PYRIN_USER -u $PYRIN_UID $PYRIN_USER
+
+COPY ./entrypoint.sh /app/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
+
+EXPOSE 16111 16110
+VOLUME /app/data
+
+COPY --from=build /go/bin/pyipad /go/bin/pyrinctl /app/
+
+CMD ["pyipad", "--utxoindex"]
