@@ -43,4 +43,6 @@ COPY --from=builder /go/bin/pyrinwallet /app/
 
 EXPOSE 8082 8082
 
-CMD /app/kaspawallet start-daemon --listen=0.0.0.0:8082 --rpcserver=$KASPAD
+USER $PYRIN_USER
+
+CMD /app/pyrinwallet start-daemon --listen=0.0.0.0:8082 --rpcserver=$KASPAD

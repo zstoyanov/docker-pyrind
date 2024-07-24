@@ -48,5 +48,7 @@ VOLUME /app/data
 
 COPY --from=builder /go/bin/pyipad /go/bin/pyrinctl /app/
 
+USER $PYRIN_USER
+
 CMD ["pyipad", "--utxoindex"]
 

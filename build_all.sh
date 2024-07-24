@@ -11,13 +11,6 @@ echo
 
 echo
 echo "========================="
-echo " Building Loadbalancer"
-echo "========================="
-echo
-./kaspad_loadbalancer/build.sh $@
-
-echo
-echo "========================="
 echo " Building Pyrinwallet"
 echo "========================="
 echo
